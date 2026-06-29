@@ -1,0 +1,63 @@
+.careers-container {
+  background: var(--electric-blue);
+  color: var(--paper);
+}
+
+.careers.block {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: clamp(32px, 6vw, 96px);
+  padding: var(--section-padding) clamp(20px, 4vw, 48px);
+}
+
+.careers.block .careers-copy h1,
+.careers.block .careers-copy h2 {
+  font-size: var(--heading-font-size-xl);
+  color: var(--navy);
+  margin-top: 0;
+}
+
+.careers.block .careers-copy p {
+  font-size: var(--body-font-size-m);
+  max-width: 46ch;
+  color: var(--paper);
+}
+
+.careers.block .careers-media img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* primary CTA on the blue field reads as navy-on-paper, magenta on hover */
+.careers.block a.button.primary {
+  border-color: var(--paper);
+  background: var(--paper);
+  color: var(--navy);
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  padding: 16px 40px;
+}
+
+.careers.block a.button.primary:hover,
+.careers.block a.button.primary:focus-visible {
+  border-color: var(--magenta);
+  background: var(--magenta);
+  color: var(--paper);
+}
+
+@media (width <= 900px) {
+  .careers.block {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .careers.block .careers-media {
+    order: -1;
+  }
+}

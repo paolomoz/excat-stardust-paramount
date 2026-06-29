@@ -1,0 +1,34 @@
+.relief-container {
+  background: var(--paper);
+  color: var(--navy);
+}
+
+.relief.block {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--section-padding) clamp(20px, 4vw, 48px);
+  text-align: center;
+}
+
+.relief.block h1,
+.relief.block h2 {
+  font-size: var(--heading-font-size-l);
+  color: var(--navy);
+  margin-top: 0;
+}
+
+.relief.block .relief-inner > p {
+  font-family: var(--body-font-family);
+  text-transform: none;
+  font-weight: 600;
+  font-size: 15px;
+  max-width: 60ch;
+  margin: 12px auto 0;
+  color: #333;
+}
+
+.relief.block em {
+  font-style: normal;
+  border-bottom: 3px solid var(--magenta);
+  padding-bottom: 2px;
+}

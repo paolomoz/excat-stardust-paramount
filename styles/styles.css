@@ -10,64 +10,95 @@
  * governing permissions and limitations under the License.
  */
 
+/*
+ * ⚠️ FONT LICENSING REQUIRED BEFORE GOING LIVE
+ * "Paramount Vista Sans" and "Peak Sans" are PROPRIETARY Paramount brand fonts
+ * (foundry-direct). Self-hosted here for fidelity. Do NOT publish to a public
+ * aem.live domain until the webfont/embedding license is confirmed.
+ * See styles/fonts/LICENSING.md for the remove-and-fallback path.
+ */
+
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  /* brand colors (lifted from prototype :root) */
+  --navy: #000a3c;          /* Midnight Navy — anchor bg + text */
+  --deep-navy: #00072b;     /* Deep Navy — footer value step */
+  --electric-blue: #0064ff; /* Electric Blue — signal/primary */
+  --paper: #fff;            /* Paper White */
+  --magenta: #d63384;       /* Magenta Pop — rare accent */
+
+  /* boilerplate-compatible role tokens (mapped to brand) */
+  --background-color: var(--paper);
+  --light-color: #f2f5ff;
+  --dark-color: var(--deep-navy);
+  --text-color: var(--navy);
+  --link-color: var(--electric-blue);
+  --link-hover-color: var(--magenta);
 
   /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  --body-font-family: "Peak Sans", peak-sans-fallback, arial, sans-serif;
+  --heading-font-family: "Paramount Vista Sans", paramount-vista-fallback, "Arial Narrow", arial, sans-serif;
 
   /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  --body-font-size-m: 18px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 14px;
 
   /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
+  --heading-font-size-xxl: clamp(64px, 11vw, 160px);
+  --heading-font-size-xl: clamp(40px, 7vw, 112px);
+  --heading-font-size-l: clamp(32px, 5vw, 72px);
+  --heading-font-size-m: 32px;
   --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
+  --heading-font-size-xs: 20px;
+
+  /* layout */
+  --max-width: 1280px;
+  --section-padding: 64px;
 
   /* nav height */
-  --nav-height: 64px;
+  --nav-height: 72px;
 }
 
-/* fallback fonts */
+/* brand fonts (proprietary — see LICENSING.md) */
 @font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
+  font-family: "Paramount Vista Sans";
+  src: url("/styles/fonts/ParamountVistaSans-CondensedRegular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
+  font-family: "Paramount Vista Sans";
+  src: url("/styles/fonts/ParamountVistaSans-CondensedBold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
 }
 
-@media (width >= 900px) {
-  :root {
-    /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
+@font-face {
+  font-family: "Peak Sans";
+  src: url("/styles/fonts/PeakSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
 
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
-  }
+@font-face {
+  font-family: "Peak Sans";
+  src: url("/styles/fonts/PeakSans-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+/* metric-matched fallbacks (condensed display → Arial Narrow; body → Arial) */
+@font-face {
+  font-family: paramount-vista-fallback;
+  src: local("Arial Narrow"), local("Arial");
+  size-adjust: 82%;
+}
+
+@font-face {
+  font-family: peak-sans-fallback;
+  src: local("Arial");
+  size-adjust: 100%;
 }
 
 body {
@@ -107,8 +138,9 @@ h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 700;
+  line-height: 0.92;
+  text-transform: uppercase;
   scroll-margin: 40px;
 }
 
@@ -143,7 +175,7 @@ pre {
 }
 
 main > div {
-  margin: 40px 16px;
+  margin: 0;
 }
 
 input,
@@ -279,6 +311,7 @@ button.button.accent:disabled:focus-visible {
 }
 
 main img {
+  display: block;
   max-width: 100%;
   width: auto;
   height: auto;
@@ -295,25 +328,15 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* sections — brand blocks are full-bleed color fields, so no global gutter/margin */
 main > .section {
-  margin: 40px 0;
+  margin: 0;
 }
 
 main > .section > div {
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 24px;
-}
-
-main > .section:first-of-type {
-  margin-top: 0;
-}
-
-@media (width >= 900px) {
-  main > .section > div {
-    padding: 0 32px;
-  }
+  max-width: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* section metadata */
