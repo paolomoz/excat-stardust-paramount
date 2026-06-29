@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-29T15:10:00Z",
+  "title": "Design System: Paramount.com — Variant B",
+  "_provenance": {
+    "writtenBy": "stardust:uplift (Phase 4 / direct)",
+    "mode": "Mode A (brand-faithful)",
+    "variant": "B",
+    "capturedTraitAmplified": "IP / brand photography",
+    "readArtifacts": ["stardust/current/_brand-extraction.json", "stardust/uplift-questions.md", "stardust/direction.md"]
+  },
+  "extensions": {
+    "colorMeta": {
+      "midnight-navy": { "role": "neutral", "displayName": "Midnight Navy", "canonical": "#000A3C" },
+      "deep-navy": { "role": "neutral", "displayName": "Deep Navy", "canonical": "#00072B" },
+      "electric-blue": { "role": "primary", "displayName": "Electric Blue", "canonical": "#0064FF" },
+      "paper-white": { "role": "neutral", "displayName": "Paper White", "canonical": "#FFFFFF" },
+      "magenta-pop": { "role": "accent", "displayName": "Magenta Pop", "canonical": "#D63384" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero + featured-brand cover line." },
+      "headline": { "displayName": "Headline", "purpose": "Section + brand-name overlays." },
+      "body": { "displayName": "Body", "purpose": "Brand descriptions, captions." }
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": [ { "name": "tablet", "value": "600px" }, { "name": "desktop", "value": "900px" }, { "name": "wide", "value": "1200px" } ],
+    "iaPriorities": [
+      { "signal": "audience-routing", "evidence": "4 nav pillars routing distinct audiences", "preserveAs": "header-persistent", "scope": "site-wide", "mutability": "movable" },
+      { "signal": "careers-cta", "evidence": "'SHAPE THE FUTURE / JOIN US' band", "preserveAs": "dedicated-section", "scope": "site-wide", "mutability": "movable" },
+      { "signal": "brand-portfolio", "evidence": "12-tile brand grid — load-bearing 'what we are' surface", "preserveAs": "primary-section", "scope": "site-wide", "mutability": "movable" }
+    ],
+    "componentStyle": {
+      "buttons": "Hard-rectangle; primary electric-blue + ghost-on-imagery; magenta hover.",
+      "cards": "Photo-first; flagship 2x2, supporting 1x1; lower-band overlay label on flat scrim.",
+      "dualCTAPattern": "Ghost + primary allowed only over the full-bleed featured image; single CTA elsewhere."
+    },
+    "systemComponentRoles": {
+      "header": { "purpose": "audience routing", "position": "transparent-over-featured-image" },
+      "cta-band": { "purpose": "careers", "position": "full-bleed-portrait" },
+      "footer": { "purpose": "navigation + legal", "position": "page-end" }
+    },
+    "voice": {
+      "dos": ["Cover-line phrasing over imagery", "Front the IP at editorial scale"],
+      "donts": ["Equal-weight logo wall", "Color field upstaging the photo it borders"]
+    }
+  },
+  "components": [
+    { "name": "Primary Button", "kind": "button", "refersTo": "button-primary", "description": "Primary CTA.", "html": "<button class=\"ds-btn-primary\">JOIN US</button>", "css": ".ds-btn-primary{background:#0064FF;color:#fff;padding:16px 40px;border:none;border-radius:0;font-family:'Peak Sans',Helvetica,Arial,sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:background .2s}.ds-btn-primary:hover{background:#D63384}.ds-btn-primary:focus-visible{outline:3px solid #D63384;outline-offset:3px}" },
+    { "name": "Ghost Button", "kind": "button", "refersTo": "button-ghost", "description": "CTA over imagery.", "html": "<button class=\"ds-btn-ghost\">EXPLORE</button>", "css": ".ds-btn-ghost{background:transparent;color:#fff;padding:14px 36px;border:2px solid #fff;border-radius:0;font-family:'Peak Sans',Helvetica,Arial,sans-serif;font-weight:600;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}.ds-btn-ghost:hover{background:#fff;color:#000A3C}" },
+    { "name": "Featured Brand Lead", "kind": "custom", "refersTo": "featured-brand", "description": "Full-bleed 3:2 IP still with cover-line.", "html": "<section class=\"ds-featured\"><img src=\"...\" alt=\"\"><div class=\"ds-featured__overlay\"><h2>STAR TREK</h2></div></section>", "css": ".ds-featured{position:relative;aspect-ratio:3/2;overflow:hidden}.ds-featured img{width:100%;height:100%;object-fit:cover}.ds-featured__overlay{position:absolute;inset:auto 0 0 0;padding:48px 32px;background:rgba(0,7,43,.55)}.ds-featured__overlay h2{color:#fff;font-family:'Paramount Vista Sans','Arial Narrow',sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(40px,7vw,112px);line-height:.92;margin:0}" }
+  ],
+  "narrative": {
+    "northStar": "The Editorial House",
+    "overview": "Variant B bets on first-party IP photography: a full-bleed featured brand leads, then an asymmetric mosaic weights flagships 2x. Photography is the layout; navy/blue fields are matting.",
+    "keyCharacteristics": ["Full-bleed featured-brand lead (3:2)", "Asymmetric editorial mosaic", "Lower-band overlay labels", "Photography as layout", "Full-bleed portrait careers"],
+    "rules": [
+      { "name": "The Matting Rule", "body": "Color fields frame photography, never compete with it.", "section": "colors" },
+      { "name": "The Cover-Line Rule", "body": "Brand names overlay the lower third of their image.", "section": "typography" },
+      { "name": "The Scrim, Not Shadow Rule", "body": "Legibility over imagery comes from a flat color scrim, never a shadow or blur.", "section": "elevation" }
+    ],
+    "dos": ["Do lead with one full-bleed featured brand", "Do weight flagships 2x", "Do overlay names on the lower band"],
+    "donts": ["Don't rebuild the logo wall", "Don't use gradients/shadows for legibility", "Don't let a field upstage its photo"]
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "_provenance": {
+    "writtenBy": "stardust:extract (uplift Phase 1)",
+    "writtenAt": "2026-06-29T14:55:00Z",
+    "againstInput": "https://www.paramount.com/",
+    "renderedBy": "playwright",
+    "method": "single-page (--single)",
+    "readArtifacts": [
+      "stardust/current/pages/index.json",
+      "stardust/current/_surface-raw.json"
+    ],
+    "notes": "Single homepage capture per uplift opinionated default. Palette/type aggregated from one page; cross-page bias not applicable to single-page uplift."
+  },
+  "logo": {
+    "source": "inline SVG wordmark + script Paramount lockup",
+    "wordmarkAsset": "assets/media/wordmark-white-tech.svg",
+    "note": "Hero uses a script 'Paramount' wordmark with 'A SKYDANCE CORPORATION' lockup over an electric-blue 'WE ARE' display headline."
+  },
+  "palette": {
+    "_source": "_surface-raw.json § palette (computed styles, frequency-sorted, clustered)",
+    "roles": [
+      { "role": "background", "name": "Midnight Navy", "value": "#000A3C", "rgb": "rgb(0, 10, 60)", "count": 492, "usage": "Dominant page background and primary text color. The brand's anchor." },
+      { "role": "primary", "name": "Electric Blue", "value": "#0064FF", "rgb": "rgb(0, 100, 255)", "count": 141, "usage": "Section backgrounds ('MORE OF WHAT YOU LOVE'), giant display type ('WE ARE', 'FUTURE'), links and accents." },
+      { "role": "surface", "name": "Paper White", "value": "#FFFFFF", "rgb": "rgb(255, 255, 255)", "count": 23, "usage": "Body background, reversed text on navy/blue, tile gaps." },
+      { "role": "accent", "name": "Magenta Pop", "value": "#D63384", "rgb": "rgb(214, 51, 132)", "count": 6, "usage": "Rare hover/accent highlight. Used sparingly (<2% of surfaces)." },
+      { "role": "ink", "name": "True Black", "value": "#000000", "rgb": "rgb(0, 0, 0)", "count": 2, "usage": "Occasional hard ink, icons." }
+    ],
+    "htmlBg": "transparent",
+    "bodyBg": "rgb(255, 255, 255)",
+    "themeColor": null
+  },
+  "type": {
+    "_source": "_surface-raw.json § type + network-captured woff2 files",
+    "headingFamily": "Paramount Vista Sans (Condensed)",
+    "bodyFamily": "Peak Sans",
+    "fontFamilies": [
+      { "value": "Paramount Vista Sans", "role": "display/heading" },
+      { "value": "Peak Sans", "role": "body/UI" }
+    ],
+    "h1": { "fontFamily": "Paramount Vista Sans", "fontSize": "160px", "fontWeight": "700", "lineHeight": "144px", "letterSpacing": "normal", "textTransform": "none", "color": "rgb(0, 10, 60)" },
+    "h2": { "fontFamily": "Paramount Vista Sans", "fontSize": "112px", "fontWeight": "700", "lineHeight": "100.8px", "textTransform": "uppercase", "color": "rgb(0, 10, 60)" },
+    "body": { "fontFamily": "Peak Sans", "fontSize": "18px", "fontWeight": "400", "lineHeight": "24px", "color": "rgb(0, 10, 60)" },
+    "scaleAudit": { "kind": "ad-hoc", "note": "Display sizes are very large and editorial (112-160px) with tight line-heights; body is a flat 18px. Big jump display->body, no intermediate modular steps observed on home." },
+    "files": [
+      { "family": "Paramount Vista Sans", "weight": 400, "file": "assets/fonts/ParamountVistaSans-CondensedRegular.woff2", "licensed": "proprietary" },
+      { "family": "Paramount Vista Sans", "weight": 700, "file": "assets/fonts/ParamountVistaSans-CondensedBold.woff2", "licensed": "proprietary" },
+      { "family": "Peak Sans", "weight": 400, "file": "assets/fonts/PeakSans-Regular.woff2", "licensed": "proprietary" },
+      { "family": "Peak Sans", "weight": 600, "file": "assets/fonts/PeakSans-Semibold.woff2", "licensed": "proprietary" }
+    ]
+  },
+  "motifs": {
+    "_source": "_surface-raw.json § motifs",
+    "radii": [ { "value": "50%", "count": 2, "note": "Only round (circle) radii observed — logo mark, icon buttons. Tiles and sections are hard-cornered (0px)." } ],
+    "dominantRadius": "0px (hard rectangular tiles); 50% only for circular marks",
+    "shadows": [],
+    "shadowStrategy": "Flat. No box-shadows observed — depth comes from flat color blocking (navy vs electric-blue vs white), not elevation.",
+    "gradients": [],
+    "commonPatterns": ["full-bleed color-blocked hero", "square/portrait image tile grid (4-col)", "oversized editorial display headline behind/over imagery", "carousel (slick slider on hero IP images)"]
+  },
+  "voice": {
+    "_source": "pages/index.json",
+    "heroHeadline": "WE ARE / Paramount — MORE OF What you love",
+    "secondaryHeadline": "SHAPE THE FUTURE",
+    "firstBodyParagraph": "Paramount+, part of Paramount's global portfolio of multimedia entertainment and news brands, is a direct-to-consumer digital subscription video on-demand and live streaming service.",
+    "ctaSamples": ["ALL BRANDS", "Join Us", "JOIN US"],
+    "linkSamples": ["About", "News", "Careers", "Investors"],
+    "heroImage": "assets/media/homepage-header-ip-images-sbsp-1280x956-0ac135.png",
+    "heroMedium": null,
+    "register": "brand",
+    "tone": "Bold, confident, celebratory, pop-culture-forward. Big single-idea statements ('WE ARE', 'WHAT YOU LOVE', 'SHAPE THE FUTURE'). Corporate-but-playful — a media holding company that fronts its consumer IP (SpongeBob, Star Trek, RuPaul, NCIS)."
+  },
+  "heroImagery": {
+    "rotatingIP": [
+      { "alt": "SpongeBob SquarePants", "file": "assets/media/homepage-header-ip-images-sbsp-1280x956-0ac135.png" },
+      { "alt": "Zoe", "file": "assets/media/homepage-header-ip-images-zoe-1280x956-97b045.png" },
+      { "alt": "NCIS", "file": "assets/media/homepage-header-ip-images-ncis-1280x956-a431d7.png" },
+      { "alt": "RuPaul", "file": "assets/media/homepage-header-ip-images-rupaul-1280x95-ba1ad0.png" },
+      { "alt": "Star Trek", "file": "assets/media/home-page-ip-slider-startrek-1280x756-ad164f.png" }
+    ],
+    "weAreLockup": "assets/media/we-are-43da43.svg",
+    "wordmark": "assets/media/wordmark-white-tech.svg"
+  },
+  "brandTiles": [
+    { "name": "Paramount+", "file": "assets/media/startrek-discovery-767x767-a19454.jpg" },
+    { "name": "Paramount Pictures", "file": "assets/media/pp-brandimage-767x767-d4c7d2.jpg" },
+    { "name": "CBS Entertainment", "file": "assets/media/ghosts-767x767-1--b309b5.jpg" },
+    { "name": "Pluto TV", "file": "assets/media/pluto-brandimage-767x767-ef12b4.jpg" },
+    { "name": "MTV", "file": "assets/media/rupaul-767x767-82c5fa.jpg" },
+    { "name": "Nickelodeon", "file": "assets/media/spongebob-brandfeature-304x456-237535.jpg" },
+    { "name": "CBS Sports", "file": "assets/media/nateburleson-767x767-e03e97.jpg" },
+    { "name": "Paramount Sports Entertainment", "file": "assets/media/featured-image-09bff6.png" },
+    { "name": "BET", "file": "assets/media/sistas-767x767-1--196161.jpg" },
+    { "name": "Skydance Animation", "file": "assets/media/skydane-animation-2x3-0fd057.png" },
+    { "name": "CBS News", "file": "assets/media/cbsmornings-gayleking-767x767-cc9055.jpg" },
+    { "name": "Comedy Central", "file": "assets/media/cc-brandimage-767x767-v2-7fc1f8.jpg" }
+  ],
+  "motion": {
+    "_source": "_surface-raw.json § motion",
+    "videos": [],
+    "iframes": [ { "purpose": "tracking pixel (doubleclick)" }, { "purpose": "tracking pixel (demdex)" } ],
+    "lottieCount": 0,
+    "canvasCount": 0,
+    "carousel": { "library": "slick", "evidence": "'slick' font-family loaded; hero IP images rotate via slick slider", "behavior": "auto-rotating hero IP imagery (SpongeBob, Zoe, NCIS, RuPaul, Star Trek) behind the script Paramount wordmark" },
+    "signature": "Auto-rotating hero IP carousel + giant kinetic display type. No background video; motion is slider-driven imagery and (implied) reveal transitions."
+  },
+  "systemComponents": {
+    "header": { "present": true, "items": ["About", "News", "Careers", "Investors"], "treatment": "Minimal transparent nav over navy hero; circular logo mark top-left, hamburger top-right." },
+    "footer": { "present": true, "columns": ["About", "News", "Careers", "Investors", "Streaming Brands"], "treatment": "Navy footer with column link lists, brand logos (Pluto TV etc.), legal row." },
+    "ctaBand": { "present": true, "evidence": "'SHAPE THE FUTURE' careers band with 'JOIN US' CTA and a portrait of an employee." }
+  },
+  "ia": {
+    "sections": [
+      { "id": "hero", "label": "WE ARE Paramount (rotating IP hero)", "purpose": "brand statement + IP showcase" },
+      { "id": "brands", "label": "MORE OF WHAT YOU LOVE (12-tile brand grid)", "purpose": "portfolio of brands" },
+      { "id": "careers", "label": "SHAPE THE FUTURE (careers CTA)", "purpose": "recruiting" },
+      { "id": "footer", "label": "Footer", "purpose": "navigation + legal" }
+    ]
+  }
+}

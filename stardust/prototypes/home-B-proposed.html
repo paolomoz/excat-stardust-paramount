@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- stardust:provenance
+  writtenBy:        stardust:prototype (uplift Phase 5)
+  writtenAt:        2026-06-29T15:35:00Z
+  page:             home
+  pageUrl:          https://www.paramount.com/
+  variant:          B (photography re-foregrounded)
+  againstDirection: stardust/direction.md (Active 2026-06-29T15:10:00Z)
+  readArtifacts:
+    - stardust/current/pages/index.json
+    - DESIGN-B.md
+    - DESIGN-B.json
+    - stardust/uplift-questions.md
+  mode:             Mode A (brand-faithful)
+  capturedTraitAmplified: IP / brand photography
+  unsourcedContent: []
+  stardustVersion:  0.13.1
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home | Paramount</title>
+<style>
+  @font-face { font-family:"Paramount Vista Sans"; src:url("../current/assets/fonts/ParamountVistaSans-CondensedBold.woff2") format("woff2"); font-weight:700; font-display:swap; }
+  @font-face { font-family:"Paramount Vista Sans"; src:url("../current/assets/fonts/ParamountVistaSans-CondensedRegular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+  @font-face { font-family:"Peak Sans"; src:url("../current/assets/fonts/PeakSans-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+  @font-face { font-family:"Peak Sans"; src:url("../current/assets/fonts/PeakSans-Semibold.woff2") format("woff2"); font-weight:600; font-display:swap; }
+
+  :root {
+    --heading-font-family: "Paramount Vista Sans", "Arial Narrow", sans-serif;
+    --body-font-family: "Peak Sans", Helvetica, Arial, sans-serif;
+    --heading-xxl: clamp(64px, 11vw, 160px);
+    --heading-xl: clamp(40px, 7vw, 112px);
+    --heading-lg: clamp(32px, 5vw, 72px);
+    --heading-md: 28px;
+    --body: 18px;
+    --body-sm: 15px;
+    --line-height-heading: 0.9;
+    --line-height-body: 1.5;
+    --color-bg: #000A3C;        /* Midnight Navy (matting) */
+    --color-deep: #00072B;      /* Deep Navy (scrim) */
+    --color-fg: #FFFFFF;
+    --color-accent: #0064FF;    /* Electric Blue */
+    --color-magenta: #D63384;
+    --color-paper: #FFFFFF;
+    --spacing-xs: 4px; --spacing-sm: 8px; --spacing-md: 16px; --spacing-lg: 24px; --spacing-xl: 48px; --spacing-2xl: 96px;
+    --section-padding: 64px;
+    --max-width: 1280px;
+    --radius: 0px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--body-font-family); font-size: var(--body); line-height: var(--line-height-body); color: var(--color-fg); background: var(--color-bg); }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3 { font-family: var(--heading-font-family); font-weight: 700; line-height: var(--line-height-heading); text-transform: uppercase; }
+  .container { max-width: var(--max-width); margin: 0 auto; padding-inline: var(--spacing-xl); }
+
+  /* Header */
+  header { position: absolute; top: 0; left: 0; right: 0; z-index: 20; }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 24px var(--spacing-xl); }
+  .logo-mark { width: 44px; height: 44px; border: 2px solid var(--color-paper); border-radius: 50%; display: grid; place-items: center; font-family: var(--heading-font-family); font-weight: 700; font-size: 22px; color: var(--color-paper); }
+  .nav-links { display: flex; gap: 32px; list-style: none; font-weight: 600; font-size: 16px; letter-spacing: .03em; }
+  .nav-links a { padding: 4px 0; border-bottom: 2px solid transparent; transition: border-color .2s; }
+  .nav-links a:hover { border-color: var(--color-magenta); }
+  .burger { display: none; background: none; border: none; color: var(--color-paper); font-size: 28px; cursor: pointer; }
+
+  /* Hero — cover-line over lower band of full-bleed IP */
+  .hero { position: relative; min-height: 100vh; overflow: hidden; display: flex; align-items: flex-end; }
+  .hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+  .hero::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(0,7,43,.92) 0%, rgba(0,7,43,.3) 40%, rgba(0,7,43,0) 70%); }
+  .hero__cover { position: relative; z-index: 3; padding: 0 var(--spacing-xl) var(--spacing-2xl); max-width: var(--max-width); margin: 0 auto; width: 100%; }
+  .hero__eyebrow { font-family: var(--body-font-family); font-weight: 600; letter-spacing: .35em; font-size: 13px; text-transform: uppercase; opacity: .85; margin-bottom: 12px; }
+  .hero__we { font-size: var(--heading-xxl); color: var(--color-paper); }
+  .hero__we em { font-style: normal; color: var(--color-accent); }
+
+  /* Featured-brand lead — full-bleed 3:2 */
+  .featured { position: relative; aspect-ratio: 3/2; overflow: hidden; display: flex; align-items: flex-end; }
+  .featured img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+  .featured__scrim { position: relative; z-index: 2; width: 100%; background: linear-gradient(to top, rgba(0,7,43,.9), rgba(0,7,43,0)); padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-xl); }
+  .featured__inner { max-width: var(--max-width); margin: 0 auto; }
+  .featured__eyebrow { font-family: var(--body-font-family); font-weight: 600; letter-spacing: .2em; text-transform: uppercase; font-size: 13px; color: var(--color-accent); margin-bottom: 8px; }
+  .featured h2 { font-size: var(--heading-xl); color: #fff; }
+  .featured p { font-family: var(--body-font-family); font-size: var(--body); max-width: 52ch; margin: 16px 0 24px; color: #fff; }
+  .btn-ghost { display: inline-block; background: transparent; color: #fff; border: 2px solid #fff; padding: 14px 36px; font-family: var(--body-font-family); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; cursor: pointer; transition: background .2s, color .2s; }
+  .btn-ghost:hover { background: #fff; color: var(--color-bg); }
+
+  /* Brands mosaic — asymmetric editorial */
+  .mosaic-sec { background: var(--color-bg); padding: var(--section-padding) 0; }
+  .mosaic-sec h2 { font-size: var(--heading-xl); text-align: center; margin-bottom: var(--spacing-xl); color: #fff; }
+  .mosaic { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 220px; gap: 8px; }
+  .m { position: relative; overflow: hidden; }
+  .m img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+  .m:hover img { transform: scale(1.05); }
+  .m::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,7,43,.85) 0%, rgba(0,7,43,0) 50%); }
+  .m__label { position: absolute; left: 16px; bottom: 14px; right: 16px; z-index: 2; }
+  .m__name { font-family: var(--heading-font-family); font-weight: 700; text-transform: uppercase; color: #fff; font-size: 24px; line-height: 1; }
+  .m__desc { font-family: var(--body-font-family); font-size: 13px; line-height: 1.4; color: #fff; opacity: 0; max-height: 0; overflow: hidden; transition: opacity .3s, max-height .3s; }
+  .m:hover .m__desc { opacity: .95; max-height: 100px; margin-top: 6px; }
+  .m--wide { grid-column: span 2; }
+  .m--tall { grid-row: span 2; }
+  .m--big { grid-column: span 2; grid-row: span 2; }
+  .m--big .m__name { font-size: clamp(32px, 4vw, 56px); }
+
+  /* Careers — full-bleed portrait */
+  .careers { position: relative; min-height: 86vh; overflow: hidden; display: flex; align-items: center; }
+  .careers img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; z-index: 1; }
+  .careers::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to right, rgba(0,7,43,.9) 0%, rgba(0,7,43,.5) 45%, rgba(0,7,43,0) 80%); }
+  .careers__copy { position: relative; z-index: 3; max-width: var(--max-width); margin: 0 auto; padding: 0 var(--spacing-xl); width: 100%; }
+  .careers h2 { font-size: var(--heading-xl); margin-bottom: var(--spacing-lg); }
+  .careers h2 em { font-style: normal; color: var(--color-accent); display: block; }
+  .careers p { font-size: var(--body); max-width: 40ch; margin-bottom: var(--spacing-xl); }
+  .btn { display: inline-block; background: var(--color-accent); color: #fff; padding: 16px 40px; font-family: var(--body-font-family); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; border: none; cursor: pointer; transition: background .2s, transform .2s; }
+  .btn:hover { background: var(--color-magenta); transform: translateY(-2px); }
+  .btn:focus-visible { outline: 3px solid var(--color-magenta); outline-offset: 3px; }
+
+  /* Footer */
+  footer { background: var(--color-deep); color: var(--color-paper); padding: var(--section-padding) 0 var(--spacing-xl); }
+  .footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-xl); }
+  .footer-cols h3 { font-size: 16px; letter-spacing: .04em; margin-bottom: var(--spacing-md); color: var(--color-accent); }
+  .footer-cols ul { list-style: none; }
+  .footer-cols li { margin-bottom: 8px; font-size: 14px; opacity: .85; }
+  .footer-cols a:hover { opacity: 1; color: var(--color-magenta); }
+  .footer-legal { border-top: 1px solid rgba(255,255,255,.15); margin-top: var(--spacing-2xl); padding-top: var(--spacing-lg); font-size: 12px; opacity: .6; text-align: center; }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .burger { display: block; }
+    .nav-links.open { display: flex; position: absolute; top: 72px; right: 24px; flex-direction: column; background: var(--color-deep); padding: 20px 28px; gap: 16px; }
+    .mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+    .m--wide, .m--big { grid-column: span 2; }
+    .m--big { grid-row: span 2; }
+    .footer-cols { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .container { padding-inline: var(--spacing-lg); }
+    .mosaic { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+    .m--wide, .m--big, .m--tall { grid-column: span 1; grid-row: span 1; }
+    .footer-cols { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body data-template="landing">
+<header>
+  <nav class="nav" aria-label="Primary">
+    <a href="/" class="logo-mark" aria-label="Paramount home">P</a>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="/about">About</a></li>
+      <li><a href="/news">News</a></li>
+      <li><a href="/careers">Careers</a></li>
+      <li><a href="https://ir.paramount.com/">Investors</a></li>
+    </ul>
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">☰</button>
+  </nav>
+</header>
+<main>
+  <section class="hero" data-section="hero" data-intent="emotional hook" data-layout="full-bleed" data-media="image">
+    <img class="hero__img" src="../current/assets/media/home-page-ip-slider-startrek-1280x756-ad164f.png" alt="Star Trek">
+    <div class="hero__cover">
+      <p class="hero__eyebrow">A Skydance Corporation</p>
+      <h1 class="hero__we">We Are<br><em>Paramount</em></h1>
+    </div>
+  </section>
+
+  <section class="featured" data-section="featured-brand" data-intent="lead with the flagship" data-layout="full-bleed" data-media="image">
+    <img src="../current/assets/media/startrek-discovery-767x767-a19454.jpg" alt="Paramount+ — Star Trek: Discovery">
+    <div class="featured__scrim">
+      <div class="featured__inner">
+        <p class="featured__eyebrow">Featured</p>
+        <h2>Paramount+</h2>
+        <p>Part of Paramount&rsquo;s global portfolio of multimedia entertainment and news brands &mdash; a direct-to-consumer streaming service combining live sports, breaking news and A Mountain of Entertainment&trade;.</p>
+        <a class="btn-ghost" href="#">Explore</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mosaic-sec" data-section="brands" data-intent="value proposition" data-layout="grid" data-items="11">
+    <div class="container">
+      <h2>More of What You Love</h2>
+      <div class="mosaic">
+        <a class="m m--big" href="#"><img src="../current/assets/media/pp-brandimage-767x767-d4c7d2.jpg" alt="Paramount Pictures"><span class="m__label"><span class="m__name">Paramount Pictures</span><span class="m__desc">A legendary producer and global distributor of filmed entertainment since 1912.</span></span></a>
+        <a class="m m--wide" href="#"><img src="../current/assets/media/ghosts-767x767-1--b309b5.jpg" alt="CBS Entertainment"><span class="m__label"><span class="m__name">CBS</span><span class="m__desc">CBS Television Network primetime comedy, drama, reality and late night.</span></span></a>
+        <a class="m" href="#"><img src="../current/assets/media/pluto-brandimage-767x767-ef12b4.jpg" alt="Pluto TV"><span class="m__label"><span class="m__name">Pluto TV</span><span class="m__desc">The leading free streaming TV service.</span></span></a>
+        <a class="m" href="#"><img src="../current/assets/media/cc-brandimage-767x767-v2-7fc1f8.jpg" alt="Comedy Central"><span class="m__label"><span class="m__name">Comedy Central</span><span class="m__desc">Comedy&rsquo;s biggest voices.</span></span></a>
+        <a class="m m--tall" href="#"><img src="../current/assets/media/rupaul-767x767-82c5fa.jpg" alt="MTV"><span class="m__label"><span class="m__name">MTV</span><span class="m__desc">The world&rsquo;s premier youth entertainment brand and cultural home.</span></span></a>
+        <a class="m m--wide" href="#"><img src="../current/assets/media/spongebob-brandfeature-304x456-237535.jpg" alt="Nickelodeon"><span class="m__label"><span class="m__name">Nickelodeon</span><span class="m__desc">The number-one entertainment brand for kids.</span></span></a>
+        <a class="m" href="#"><img src="../current/assets/media/nateburleson-767x767-e03e97.jpg" alt="CBS Sports"><span class="m__label"><span class="m__name">CBS Sports</span><span class="m__desc">A year-round leader in television sports.</span></span></a>
+        <a class="m" href="#"><img src="../current/assets/media/sistas-767x767-1--196161.jpg" alt="BET"><span class="m__label"><span class="m__name">BET</span><span class="m__desc">Championing Black culture worldwide.</span></span></a>
+        <a class="m m--wide" href="#"><img src="../current/assets/media/cbsmornings-gayleking-767x767-cc9055.jpg" alt="CBS News"><span class="m__label"><span class="m__name">CBS News</span><span class="m__desc">CBS News, 28 owned TV stations and the streaming network.</span></span></a>
+        <a class="m" href="#"><img src="../current/assets/media/featured-image-09bff6.png" alt="Paramount Sports"><span class="m__label"><span class="m__name">Sports Ent.</span><span class="m__desc">Where sports and culture meet.</span></span></a>
+        <a class="m" href="#"><img src="../current/assets/media/skydane-animation-2x3-0fd057.png" alt="Skydance Animation"><span class="m__label"><span class="m__name">Skydance Animation</span><span class="m__desc">Bold, original stories in incredible worlds.</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="careers" data-section="careers" data-intent="drive action" data-layout="full-bleed" data-media="image">
+    <img src="../current/assets/media/career-person-01-720x738-55868c.png" alt="Life at Paramount">
+    <div class="careers__copy">
+      <h2>Shape the<em>Future</em></h2>
+      <p>Join a global team telling the stories the world loves. Build your career where culture is made.</p>
+      <a class="btn" href="/careers">Join Us</a>
+    </div>
+  </section>
+</main>
+
+<footer data-section="footer" data-intent="navigation + legal" data-layout="grid">
+  <div class="container">
+    <div class="footer-cols">
+      <div><h3>About</h3><ul><li><a href="/about/brands">Brands</a></li><li><a href="/about/businesses">Businesses</a></li><li><a href="/about/leadership">Leadership</a></li><li><a href="/about/history">History</a></li></ul></div>
+      <div><h3>News</h3><ul><li><a href="/news">Latest</a></li><li><a href="/press">Press Releases</a></li></ul></div>
+      <div><h3>Careers</h3><ul><li><a href="/careers/benefits">Benefits</a></li><li><a href="/careers/life-at-paramount">Life at Paramount</a></li><li><a href="/careers/internships">Internships</a></li></ul></div>
+      <div><h3>Investors</h3><ul><li><a href="https://ir.paramount.com/quarterly-results">Quarterly Results</a></li><li><a href="https://ir.paramount.com/events-webcasts-annual-meetings">Events &amp; Webcasts</a></li></ul></div>
+    </div>
+    <div class="footer-legal">© 2026 Paramount. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav a11y (proposed-file-shell.md inline-script exception)
+  (function(){var b=document.querySelector('.burger'),n=document.getElementById('navlinks');if(!b||!n)return;b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);});document.addEventListener('keydown',function(e){if(e.key==='Escape'){n.classList.remove('open');b.setAttribute('aria-expanded',false);}});})();
+</script>
+</body>
+</html>

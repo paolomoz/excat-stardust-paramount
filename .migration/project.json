@@ -1,0 +1,10 @@
+{
+  "sites": {
+    "excat-stardust-paramount": {
+      "previewOrg": "paolomoz",
+      "previewSite": "excat-stardust-paramount",
+      "contentHostUrl": "https://content.da.live/paolomoz/excat-stardust-paramount/"
+    }
+  },
+  "type": "da"
+}

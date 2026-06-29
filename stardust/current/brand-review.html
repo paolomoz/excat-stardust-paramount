@@ -1,0 +1,136 @@
+<!doctype html>
+<!--
+  _provenance:
+    writtenBy: stardust:extract (uplift Phase 1)
+    writtenAt: 2026-06-29T14:55:00Z
+    againstInput: https://www.paramount.com/
+    readArtifacts:
+      - stardust/current/_brand-extraction.json
+      - stardust/current/pages/index.json
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand Review — Paramount.com</title>
+<style>
+  @font-face { font-family:"Paramount Vista Sans"; src:url("assets/fonts/ParamountVistaSans-CondensedBold.woff2") format("woff2"); font-weight:700; font-display:swap; }
+  @font-face { font-family:"Paramount Vista Sans"; src:url("assets/fonts/ParamountVistaSans-CondensedRegular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+  @font-face { font-family:"Peak Sans"; src:url("assets/fonts/PeakSans-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+  @font-face { font-family:"Peak Sans"; src:url("assets/fonts/PeakSans-Semibold.woff2") format("woff2"); font-weight:600; font-display:swap; }
+  :root{ --navy:#000A3C; --blue:#0064FF; --white:#FFFFFF; --magenta:#D63384; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:"Peak Sans",Helvetica,Arial,sans-serif; color:var(--navy); background:var(--white); line-height:1.45; }
+  .wrap{ max-width:1100px; margin:0 auto; padding:48px 32px 96px; }
+  header.hero{ background:var(--navy); color:var(--white); padding:64px 32px; }
+  header.hero .inner{ max-width:1100px; margin:0 auto; }
+  h1{ font-family:"Paramount Vista Sans",sans-serif; font-weight:700; font-size:clamp(48px,9vw,112px); line-height:0.9; text-transform:uppercase; }
+  h1 .blue{ color:var(--blue); }
+  .sub{ font-size:18px; opacity:.8; margin-top:16px; max-width:60ch; }
+  h2{ font-family:"Paramount Vista Sans",sans-serif; font-weight:700; font-size:36px; text-transform:uppercase; margin:56px 0 20px; border-bottom:3px solid var(--navy); padding-bottom:8px; }
+  h3{ font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--blue); margin:24px 0 8px; }
+  .cite{ font-size:12px; color:#667; margin-top:6px; }
+  .swatches{ display:flex; flex-wrap:wrap; gap:16px; }
+  .sw{ width:150px; }
+  .sw .chip{ height:88px; border-radius:0; border:1px solid #ddd; }
+  .sw .lbl{ font-size:13px; margin-top:6px; font-weight:600; }
+  .sw .val{ font-size:12px; color:#667; }
+  .typerow{ border-left:4px solid var(--blue); padding:8px 0 8px 18px; margin:14px 0; }
+  .typerow .demo{ font-family:"Paramount Vista Sans",sans-serif; color:var(--navy); }
+  .grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+  .grid img{ width:100%; aspect-ratio:3/4; object-fit:cover; display:block; }
+  .tile-cap{ font-size:11px; color:#667; }
+  .tension{ background:#fff6fb; border:1px solid var(--magenta); border-left:6px solid var(--magenta); padding:16px 20px; margin:14px 0; }
+  .tension .tag{ display:inline-block; background:var(--magenta); color:#fff; font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:3px 8px; margin-bottom:8px; }
+  .ok{ background:#f2f7ff; border:1px solid var(--blue); border-left:6px solid var(--blue); padding:14px 20px; margin:14px 0; }
+  table{ border-collapse:collapse; width:100%; font-size:14px; }
+  td,th{ border:1px solid #ddd; padding:8px 12px; text-align:left; }
+  th{ background:var(--navy); color:#fff; font-weight:600; }
+  .coverage{ background:var(--blue); color:#fff; padding:16px 20px; font-size:14px; }
+  .motion-list span{ display:inline-block; background:var(--navy); color:#fff; padding:4px 10px; margin:3px; font-size:12px; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <h1>WE ARE <span class="blue">Paramount</span><br>BRAND REVIEW</h1>
+    <p class="sub">Extracted current-state surface of paramount.com — palette, typography, motifs, imagery and motion — captured live via Playwright. This is the descriptive snapshot the uplift redesign builds on.</p>
+  </div>
+</header>
+<div class="wrap">
+
+  <div class="coverage">Coverage: 1 page (homepage). Palette, typography, fonts, 12 brand tiles, hero IP carousel, and system components (header/footer/careers band) all captured. No background video present; motion is carousel-driven.</div>
+
+  <h2>Colors</h2>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:#000A3C"></div><div class="lbl">Midnight Navy</div><div class="val">#000A3C · bg + text</div></div>
+    <div class="sw"><div class="chip" style="background:#0064FF"></div><div class="lbl">Electric Blue</div><div class="val">#0064FF · signal</div></div>
+    <div class="sw"><div class="chip" style="background:#FFFFFF"></div><div class="lbl">Paper White</div><div class="val">#FFFFFF · surface</div></div>
+    <div class="sw"><div class="chip" style="background:#D63384"></div><div class="lbl">Magenta Pop</div><div class="val">#D63384 · rare accent</div></div>
+  </div>
+  <p class="cite">Source: _brand-extraction.json § palette (computed colors, frequency-sorted). Navy 492 hits, blue 141, white 23, magenta 6.</p>
+
+  <h2>Typography</h2>
+  <div class="typerow"><div class="demo" style="font-size:64px;font-weight:700;line-height:0.9;text-transform:uppercase">WE ARE</div><h3>Display · Paramount Vista Sans 700 · 160px / 0.9</h3></div>
+  <div class="typerow"><div class="demo" style="font-size:44px;font-weight:700;text-transform:uppercase">WHAT YOU LOVE</div><h3>Headline · Paramount Vista Sans 700 · 112px uppercase</h3></div>
+  <div class="typerow"><div style="font-family:'Peak Sans';font-size:18px">Paramount is one of the world's leading producers of premium entertainment content.</div><h3>Body · Peak Sans 400 · 18px / 1.33</h3></div>
+  <p class="cite">Source: _brand-extraction.json § type. Proprietary fonts captured: ParamountVistaSans (Condensed Regular/Bold), PeakSans (Regular/Semibold).</p>
+
+  <h2>Motifs & Elevation</h2>
+  <p><strong>Radius:</strong> hard rectangles (0px) for tiles and buttons; 50% circles only for marks. <strong>Shadows:</strong> none — flat. <strong>Gradients:</strong> none. Structure built by alternating navy / electric-blue color fields.</p>
+  <p class="cite">Source: _brand-extraction.json § motifs.</p>
+
+  <h2>Imagery — the brand portfolio</h2>
+  <div class="grid">
+    <img src="assets/media/startrek-discovery-767x767-a19454.jpg" alt="Paramount+">
+    <img src="assets/media/pp-brandimage-767x767-d4c7d2.jpg" alt="Paramount Pictures">
+    <img src="assets/media/ghosts-767x767-1--b309b5.jpg" alt="CBS Entertainment">
+    <img src="assets/media/pluto-brandimage-767x767-ef12b4.jpg" alt="Pluto TV">
+    <img src="assets/media/rupaul-767x767-82c5fa.jpg" alt="MTV">
+    <img src="assets/media/spongebob-brandfeature-304x456-237535.jpg" alt="Nickelodeon">
+    <img src="assets/media/nateburleson-767x767-e03e97.jpg" alt="CBS Sports">
+    <img src="assets/media/featured-image-09bff6.png" alt="Paramount Sports">
+    <img src="assets/media/sistas-767x767-1--196161.jpg" alt="BET">
+    <img src="assets/media/skydane-animation-2x3-0fd057.png" alt="Skydance Animation">
+    <img src="assets/media/cbsmornings-gayleking-767x767-cc9055.jpg" alt="CBS News">
+    <img src="assets/media/cc-brandimage-767x767-v2-7fc1f8.jpg" alt="Comedy Central">
+  </div>
+  <p class="cite">12 brand tiles from the "MORE OF WHAT YOU LOVE" grid. Hero IP carousel (SpongeBob, Zoe, NCIS, RuPaul, Star Trek) captured separately.</p>
+
+  <h2>Motion</h2>
+  <div class="motion-list">
+    <span>Hero IP carousel (slick)</span><span>Kinetic display type</span><span>No background video</span><span>0 Lottie</span><span>0 canvas</span>
+  </div>
+  <p class="cite">Source: _brand-extraction.json § motion. The two iframes on the page are tracking pixels, not content. Signature motion = auto-rotating IP imagery behind the script wordmark.</p>
+
+  <h2>System Components</h2>
+  <table>
+    <tr><th>Component</th><th>Treatment</th></tr>
+    <tr><td>Header / Nav</td><td>Transparent over navy hero; circular mark + 4 pillars (About / News / Careers / Investors) + hamburger.</td></tr>
+    <tr><td>Brand grid</td><td>4-col portrait tile grid, 12 tiles, on electric-blue field.</td></tr>
+    <tr><td>Careers band</td><td>"SHAPE THE FUTURE" navy band, "JOIN US" CTA, employee portrait.</td></tr>
+    <tr><td>Footer</td><td>Navy, column link lists + streaming brand logos + legal row.</td></tr>
+  </table>
+
+  <h2>Tensions surfaced</h2>
+
+  <div class="tension"><span class="tag">dated-pattern</span><br>
+  <strong>The brand grid is an undifferentiated 4×3 wall of equal tiles.</strong> Twelve same-size portrait tiles with no hierarchy, weighting, or editorial rhythm reads as a 2018 "logo wall" pattern. Paramount+ (the flagship) gets the same visual weight as a sub-brand.</div>
+
+  <div class="tension"><span class="tag">ia-clutter</span><br>
+  <strong>The hero says "WE ARE" but never lands the proposition.</strong> Between the rotating IP, the script wordmark, the "WE ARE" SVG and "MORE OF WHAT YOU LOVE", the first viewport carries four competing typographic statements with no single focal claim.</div>
+
+  <div class="tension"><span class="tag">contrast-or-density</span><br>
+  <strong>Flat two-field color is confident but monotone over a full scroll.</strong> Navy → blue → navy → navy with no tonal relief or texture means the page has one dynamic range; the careers band and footer blur together.</div>
+
+  <div class="tension"><span class="tag">cliché</span><br>
+  <strong>The careers CTA is a generic single-portrait + headline band.</strong> "SHAPE THE FUTURE / JOIN US" with one smiling employee on navy is the default corporate-careers module; it doesn't capitalize on the IP energy the rest of the page has.</div>
+
+  <div class="tension"><span class="tag">missed-opportunity</span><br>
+  <strong>The IP carousel is the best asset and it's trapped in the hero.</strong> The rotating SpongeBob/Star Trek/RuPaul imagery is the most alive thing on the site, but it only appears once, auto-rotating, behind a wordmark — the motion and star power never carry into the rest of the page.</div>
+
+  <div class="ok"><strong>Strengths to preserve:</strong> a genuinely distinctive proprietary display face, a fearless saturated palette, real IP photography (not stock), and a flat shadowless discipline that already feels modern. The uplift keeps all of these (Mode A: palette + typography pinned) and fixes the tensions above.</div>
+
+</div>
+</body>
+</html>

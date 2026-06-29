@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-29T15:10:00Z",
+  "title": "Design System: Paramount.com — Variant A",
+  "_provenance": {
+    "writtenBy": "stardust:uplift (Phase 4 / direct)",
+    "mode": "Mode A (brand-faithful)",
+    "variant": "A",
+    "readArtifacts": ["stardust/current/_brand-extraction.json", "stardust/uplift-improvements.md", "stardust/direction.md"]
+  },
+  "extensions": {
+    "colorMeta": {
+      "midnight-navy": { "role": "neutral", "displayName": "Midnight Navy", "canonical": "#000A3C" },
+      "deep-navy": { "role": "neutral", "displayName": "Deep Navy", "canonical": "#00072B" },
+      "electric-blue": { "role": "primary", "displayName": "Electric Blue", "canonical": "#0064FF" },
+      "paper-white": { "role": "neutral", "displayName": "Paper White", "canonical": "#FFFFFF" },
+      "magenta-pop": { "role": "accent", "displayName": "Magenta Pop", "canonical": "#D63384" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero statement only — Paramount Vista Sans condensed." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles, uppercase." },
+      "body": { "displayName": "Body", "purpose": "Brand descriptions, Peak Sans." }
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": [ { "name": "tablet", "value": "600px" }, { "name": "desktop", "value": "900px" }, { "name": "wide", "value": "1200px" } ],
+    "iaPriorities": [
+      { "signal": "audience-routing", "evidence": "pages/index.json#ctas — 4 nav pillars (About/News/Careers/Investors) routing distinct audiences", "preserveAs": "header-persistent", "scope": "site-wide", "mutability": "movable" },
+      { "signal": "careers-cta", "evidence": "'SHAPE THE FUTURE / JOIN US' band with Careers nav pillar", "preserveAs": "dedicated-section", "scope": "site-wide", "mutability": "movable" },
+      { "signal": "brand-portfolio", "evidence": "12-tile 'MORE OF WHAT YOU LOVE' grid — the load-bearing 'what we are' surface", "preserveAs": "primary-section", "scope": "site-wide", "mutability": "movable" }
+    ],
+    "componentStyle": {
+      "buttons": "Hard-rectangle (0px), electric-blue fill, white label, magenta-pop hover.",
+      "cards": "Hard-rectangle full-bleed IP photo tiles, navy gaps, weighted (flagship 2x).",
+      "dualCTAPattern": "Single primary CTA per band; avoid the captured double-CTA-in-blue cliche."
+    },
+    "systemComponentRoles": {
+      "header": { "purpose": "audience routing", "position": "transparent-over-hero" },
+      "cta-band": { "purpose": "careers recruiting", "position": "lower-third" },
+      "footer": { "purpose": "navigation + legal", "position": "page-end", "constraint": "deep-navy value step to separate from preceding navy" }
+    },
+    "voice": {
+      "dos": ["Three-word declarative statements", "Front the IP, not the org chart", "Celebratory, confident"],
+      "donts": ["Press-release walls", "Boardroom stock photography", "Streaming-app content-grid clutter"]
+    }
+  },
+  "components": [
+    { "name": "Primary Button", "kind": "button", "refersTo": "button-primary", "description": "Primary CTA.", "html": "<button class=\"ds-btn-primary\">JOIN US</button>", "css": ".ds-btn-primary{background:#0064FF;color:#fff;padding:16px 40px;border:none;border-radius:0;font-family:'Peak Sans',Helvetica,Arial,sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:background .2s,transform .2s}.ds-btn-primary:hover{background:#D63384;transform:translateY(-2px)}.ds-btn-primary:focus-visible{outline:3px solid #D63384;outline-offset:3px}" },
+    { "name": "Featured Brand Tile", "kind": "card", "refersTo": "brand-tile", "description": "Weighted portfolio tile.", "html": "<a class=\"ds-tile ds-tile--featured\"><img src=\"...\" alt=\"\"><span class=\"ds-tile__label\">Paramount+</span></a>", "css": ".ds-tile{position:relative;display:block;background:#000A3C;border-radius:0;overflow:hidden}.ds-tile img{width:100%;height:100%;object-fit:cover;display:block}.ds-tile__label{position:absolute;left:16px;bottom:16px;color:#fff;font-family:'Paramount Vista Sans','Arial Narrow',sans-serif;font-weight:700;text-transform:uppercase;font-size:24px}.ds-tile--featured{grid-column:span 2;grid-row:span 2}" }
+  ],
+  "narrative": {
+    "northStar": "The Marquee, Fixed",
+    "overview": "Variant A keeps everything recognisably Paramount and applies the five obvious fixes: brand-grid hierarchy, a single hero claim, a paper-white relief band, an IP-energy careers band, and disciplined magenta accent.",
+    "keyCharacteristics": ["Flat navy/electric-blue blocking", "Oversized condensed display type", "Weighted brand grid", "One relief band", "Disciplined magenta accent"],
+    "rules": [
+      { "name": "The Two-Field Rule", "body": "Structure is built by alternating navy and electric blue — never borders or shadows.", "section": "colors" },
+      { "name": "The Three-Word Rule", "body": "Display type carries statements of three words or fewer.", "section": "typography" },
+      { "name": "The No-Shadow Rule", "body": "Surfaces never lift.", "section": "elevation" }
+    ],
+    "dos": ["Do feature the flagship brand", "Do run display type enormous and condensed", "Do let IP photography carry emotion"],
+    "donts": ["Don't rebuild the equal-weight logo wall", "Don't use gradients or glassmorphism", "Don't soften edges"]
+  }
+}

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- stardust:provenance
+  writtenBy:        stardust:prototype (uplift Phase 5, Phase 2.4 motion application)
+  writtenAt:        2026-06-29T15:45:00Z
+  page:             home
+  pageUrl:          https://www.paramount.com/
+  variant:          C (kinetic display) — CINEMATIC SURFACE
+  againstDirection: stardust/direction.md (Active 2026-06-29T15:10:00Z)
+  readArtifacts:
+    - stardust/current/pages/index.json
+    - DESIGN-C.md
+    - DESIGN-C.json (extensions.motion.register = kinetic-display)
+    - skills/prototype/reference/motion-runtime.md
+  mode:             Mode A (brand-faithful)
+  motionRegister:   kinetic-display
+  motionStack:      Lenis + CSS keyframes + rAF + IntersectionObserver
+  reducedMotion:    full fallback to static end-states
+  unsourcedContent: []
+  stardustVersion:  0.13.1
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home | Paramount</title>
+<link rel="stylesheet" href="lenis.min.css">
+<style>
+  @font-face { font-family:"Paramount Vista Sans"; src:url("../current/assets/fonts/ParamountVistaSans-CondensedBold.woff2") format("woff2"); font-weight:700; font-display:swap; }
+  @font-face { font-family:"Paramount Vista Sans"; src:url("../current/assets/fonts/ParamountVistaSans-CondensedRegular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+  @font-face { font-family:"Peak Sans"; src:url("../current/assets/fonts/PeakSans-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+  @font-face { font-family:"Peak Sans"; src:url("../current/assets/fonts/PeakSans-Semibold.woff2") format("woff2"); font-weight:600; font-display:swap; }
+
+  :root {
+    --heading-font-family: "Paramount Vista Sans", "Arial Narrow", sans-serif;
+    --body-font-family: "Peak Sans", Helvetica, Arial, sans-serif;
+    --heading-xxl: clamp(64px, 12vw, 200px);
+    --heading-xl: clamp(48px, 8vw, 130px);
+    --heading-lg: clamp(32px, 5vw, 72px);
+    --heading-md: 28px;
+    --body: 18px;
+    --body-sm: 15px;
+    --line-height-heading: 0.88;
+    --line-height-body: 1.5;
+    --color-bg: #000A3C;
+    --color-deep: #00072B;
+    --color-fg: #FFFFFF;
+    --color-accent: #0064FF;
+    --color-magenta: #D63384;
+    --color-paper: #FFFFFF;
+    --spacing-xs: 4px; --spacing-sm: 8px; --spacing-md: 16px; --spacing-lg: 24px; --spacing-xl: 48px; --spacing-2xl: 96px;
+    --section-padding: 64px;
+    --max-width: 1280px;
+    --radius: 0px;
+    /* Motion tokens — kinetic-display register (DESIGN-C.json extensions.motion) */
+    --ease-out-cubic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-out-quart: cubic-bezier(0.42, 0, 0, 1);
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --enter-duration: 800ms;
+    --enter-stagger: 110ms;
+    --parallax-translate: 30;
+    --parallax-fade: 0.3;
+    --parallax-progress: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body { font-family: var(--body-font-family); font-size: var(--body); line-height: var(--line-height-body); color: var(--color-fg); background: var(--color-bg); }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3 { font-family: var(--heading-font-family); font-weight: 700; line-height: var(--line-height-heading); text-transform: uppercase; }
+  .container { max-width: var(--max-width); margin: 0 auto; padding-inline: var(--spacing-xl); }
+
+  header { position: fixed; top: 0; left: 0; right: 0; z-index: 20; transition: background .3s, padding .3s; }
+  header.scrolled { background: rgba(0,7,43,.92); backdrop-filter: none; }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 24px var(--spacing-xl); transition: padding .3s; }
+  header.scrolled .nav { padding: 14px var(--spacing-xl); }
+  .logo-mark { width: 44px; height: 44px; border: 2px solid var(--color-paper); border-radius: 50%; display: grid; place-items: center; font-family: var(--heading-font-family); font-weight: 700; font-size: 22px; color: var(--color-paper); }
+  .nav-links { display: flex; gap: 32px; list-style: none; font-weight: 600; font-size: 16px; letter-spacing: .03em; }
+  .nav-links a { padding: 4px 0; border-bottom: 2px solid transparent; transition: border-color .2s; }
+  .nav-links a:hover { border-color: var(--color-magenta); }
+  .burger { display: none; background: none; border: none; color: var(--color-paper); font-size: 28px; cursor: pointer; }
+
+  /* Hero with kinetic letter-unmask + IP cross-fade */
+  .hero { position: relative; min-height: 100vh; background: var(--color-bg); display: grid; place-items: center; overflow: hidden; text-align: center; }
+  .hero-marquee { position: absolute; inset: 0; display: grid; place-items: center; z-index: 2; will-change: transform; }
+  .hero__we { color: var(--color-accent); font-size: var(--heading-xxl); letter-spacing: -.01em; }
+  .hero__we .ltr { display: inline-block; clip-path: inset(0 0 100% 0); transform: translateY(20%); }
+  .hero__stage { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .hero__img { position: absolute; inset: 0; margin: auto; height: 86%; width: auto; object-fit: contain; opacity: 0; transition: opacity 1s var(--ease-out-cubic); }
+  .hero__img.active { opacity: 1; }
+  .hero__wordmark { position: relative; z-index: 4; width: min(520px, 70vw); margin-top: -6vh; opacity: 0; transform: translateY(16px); transition: opacity .9s var(--ease-expo) .9s, transform .9s var(--ease-expo) .9s; }
+  .hero__wordmark.in { opacity: 1; transform: none; }
+  .hero__eyebrow { position: relative; z-index: 4; font-family: var(--body-font-family); font-weight: 600; letter-spacing: .35em; font-size: 13px; color: var(--color-paper); margin-top: 16px; text-transform: uppercase; opacity: 0; transition: opacity .8s ease 1.3s; }
+  .hero__eyebrow.in { opacity: .85; }
+  .hero__inner { position: relative; z-index: 4; display: grid; place-items: center; }
+
+  /* Display-head word-wipe (kinetic-display) */
+  .display-head .word { display: inline-block; }
+
+  .brands { background: var(--color-accent); color: var(--color-paper); padding: var(--section-padding) 0; }
+  .brands h2 { font-size: var(--heading-xl); text-align: center; margin-bottom: var(--spacing-xl); }
+  .brand-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .tile { position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--color-bg); }
+  .tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+  .tile:hover img { transform: scale(1.04); }
+  .tile__label { position: absolute; left: 14px; bottom: 12px; right: 14px; z-index: 2; }
+  .tile__name { font-family: var(--heading-font-family); font-weight: 700; text-transform: uppercase; font-size: 22px; color: #fff; line-height: 1; }
+  .tile__desc { font-size: 12px; line-height: 1.35; color: #fff; opacity: 0; max-height: 0; overflow: hidden; transition: opacity .3s, max-height .3s; }
+  .tile:hover .tile__desc { opacity: .95; max-height: 80px; margin-top: 6px; }
+  .tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,7,43,.85) 0%, rgba(0,7,43,0) 45%); z-index: 1; }
+  .tile--featured { grid-column: span 2; grid-row: span 2; }
+  .tile--featured .tile__name { font-size: clamp(28px, 4vw, 56px); }
+
+  .careers { background: var(--color-accent); color: var(--color-paper); }
+  .careers__inner { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: var(--spacing-2xl); padding: var(--section-padding) var(--spacing-xl); max-width: var(--max-width); margin: 0 auto; }
+  .careers h2 { font-size: var(--heading-xl); margin-bottom: var(--spacing-lg); }
+  .careers p { font-size: var(--body); max-width: 46ch; margin-bottom: var(--spacing-xl); }
+  .careers img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+  .btn { display: inline-block; background: var(--color-paper); color: var(--color-bg); padding: 16px 40px; font-family: var(--body-font-family); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; border: none; cursor: pointer; transition: background .2s, color .2s, transform .2s; }
+  .btn:hover { background: var(--color-magenta); color: #fff; transform: translateY(-2px); }
+
+  .relief { background: var(--color-paper); color: var(--color-bg); text-align: center; padding: var(--spacing-2xl) var(--spacing-xl); }
+  .relief h2 { font-size: var(--heading-lg); }
+  .relief .rule { display: inline-block; margin-top: 12px; font-family: var(--body-font-family); font-weight: 600; font-size: 15px; text-transform: none; border-bottom: 3px solid var(--color-magenta); padding-bottom: 2px; }
+
+  footer { background: var(--color-deep); color: var(--color-paper); padding: var(--section-padding) 0 var(--spacing-xl); }
+  .footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-xl); }
+  .footer-cols h3 { font-size: 16px; letter-spacing: .04em; margin-bottom: var(--spacing-md); color: var(--color-accent); }
+  .footer-cols ul { list-style: none; }
+  .footer-cols li { margin-bottom: 8px; font-size: 14px; opacity: .85; }
+  .footer-cols a:hover { opacity: 1; color: var(--color-magenta); }
+  .footer-legal { border-top: 1px solid rgba(255,255,255,.15); margin-top: var(--spacing-2xl); padding-top: var(--spacing-lg); font-size: 12px; opacity: .6; text-align: center; }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .burger { display: block; }
+    .nav-links.open { display: flex; position: absolute; top: 72px; right: 24px; flex-direction: column; background: var(--color-deep); padding: 20px 28px; gap: 16px; }
+    .careers__inner { grid-template-columns: 1fr; gap: var(--spacing-xl); }
+    .brand-grid { grid-template-columns: repeat(2, 1fr); }
+    .tile--featured { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/9; }
+    .footer-cols { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .container, .careers__inner { padding-inline: var(--spacing-lg); }
+    .brand-grid { grid-template-columns: 1fr; }
+    .tile--featured { grid-column: span 1; }
+  }
+
+  /* Reduced-motion: neutralize all motion to static end-states */
+  @media (prefers-reduced-motion: reduce) {
+    .hero__we .ltr { clip-path: none !important; transform: none !important; }
+    .hero__img { opacity: 0; transition: none; }
+    .hero__img.active { opacity: 1; }
+    .hero__wordmark, .hero__eyebrow { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .hero__wordmark { opacity: 1 !important; }
+    .hero__eyebrow { opacity: .85 !important; }
+    [data-anim], [data-tile-anim], [data-split] span { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; }
+    .display-head .word { clip-path: none !important; transform: none !important; }
+    header { position: absolute; }
+  }
+</style>
+<noscript>
+  <style>
+    .hero__we .ltr { clip-path: none !important; transform: none !important; }
+    .hero__img { opacity: 0 !important; }
+    .hero__img:first-of-type { opacity: 1 !important; }
+    .hero__wordmark { opacity: 1 !important; transform: none !important; }
+    .hero__eyebrow { opacity: .85 !important; }
+    [data-anim], [data-tile-anim], [data-split] span { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; }
+    .display-head .word { clip-path: none !important; transform: none !important; }
+    header { position: absolute !important; }
+  </style>
+</noscript>
+</head>
+<body data-template="landing">
+<header id="nav">
+  <nav class="nav" aria-label="Primary">
+    <a href="/" class="logo-mark" aria-label="Paramount home">P</a>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="/about">About</a></li>
+      <li><a href="/news">News</a></li>
+      <li><a href="/careers">Careers</a></li>
+      <li><a href="https://ir.paramount.com/">Investors</a></li>
+    </ul>
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">☰</button>
+  </nav>
+</header>
+<main>
+  <section class="hero" data-section="hero" data-intent="emotional hook" data-layout="full-bleed" data-media="animation">
+    <div class="hero-marquee">
+      <div class="hero__inner"><h1 class="hero__we" aria-label="We Are"><span class="ltr">W</span><span class="ltr">E</span><span class="ltr">&nbsp;</span><span class="ltr">A</span><span class="ltr">R</span><span class="ltr">E</span></h1></div>
+    </div>
+    <div class="hero__stage" aria-hidden="true">
+      <img class="hero__img active" src="../current/assets/media/homepage-header-ip-images-sbsp-1280x956-0ac135.png" alt="">
+      <img class="hero__img" src="../current/assets/media/homepage-header-ip-images-zoe-1280x956-97b045.png" alt="">
+      <img class="hero__img" src="../current/assets/media/homepage-header-ip-images-ncis-1280x956-a431d7.png" alt="">
+      <img class="hero__img" src="../current/assets/media/homepage-header-ip-images-rupaul-1280x95-ba1ad0.png" alt="">
+      <img class="hero__img" src="../current/assets/media/home-page-ip-slider-startrek-1280x756-ad164f.png" alt="">
+    </div>
+    <img class="hero__wordmark" src="../current/assets/media/wordmark-white-tech.svg" alt="Paramount, A Skydance Corporation">
+  </section>
+
+  <section class="brands" data-section="brands" data-intent="value proposition" data-layout="grid" data-items="12">
+    <div class="container">
+      <h2 class="display-head"><span class="word">More</span> <span class="word">of</span> <span class="word">What</span> <span class="word">You</span> <span class="word">Love</span></h2>
+      <div class="brand-grid">
+        <a class="tile tile--featured" href="#" data-tile-anim><img src="../current/assets/media/startrek-discovery-767x767-a19454.jpg" alt="Paramount+"><span class="tile__label"><span class="tile__name">Paramount+</span><span class="tile__desc">A direct-to-consumer streaming service combining live sports, breaking news and A Mountain of Entertainment.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/pp-brandimage-767x767-d4c7d2.jpg" alt="Paramount Pictures"><span class="tile__label"><span class="tile__name">Paramount Pictures</span><span class="tile__desc">A legendary producer and global distributor of filmed entertainment since 1912.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/ghosts-767x767-1--b309b5.jpg" alt="CBS Entertainment"><span class="tile__label"><span class="tile__name">CBS</span><span class="tile__desc">CBS Television Network primetime comedy, drama, reality and late night.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/pluto-brandimage-767x767-ef12b4.jpg" alt="Pluto TV"><span class="tile__label"><span class="tile__name">Pluto TV</span><span class="tile__desc">The leading free streaming television service, hundreds of live channels.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/rupaul-767x767-82c5fa.jpg" alt="MTV"><span class="tile__label"><span class="tile__name">MTV</span><span class="tile__desc">The world's premier youth entertainment brand.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/spongebob-brandfeature-304x456-237535.jpg" alt="Nickelodeon"><span class="tile__label"><span class="tile__name">Nickelodeon</span><span class="tile__desc">The number-one entertainment brand for kids, now in its 45th year.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/nateburleson-767x767-e03e97.jpg" alt="CBS Sports"><span class="tile__label"><span class="tile__name">CBS Sports</span><span class="tile__desc">A year-round leader in television sports.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/featured-image-09bff6.png" alt="Paramount Sports"><span class="tile__label"><span class="tile__name">Paramount Sports</span><span class="tile__desc">Premium sports storytelling content and experiences.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/sistas-767x767-1--196161.jpg" alt="BET"><span class="tile__label"><span class="tile__name">BET</span><span class="tile__desc">The world's largest media company championing Black culture.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/skydane-animation-2x3-0fd057.png" alt="Skydance Animation"><span class="tile__label"><span class="tile__name">Skydance Animation</span><span class="tile__desc">Bold, original stories set in incredible worlds.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/cbsmornings-gayleking-767x767-cc9055.jpg" alt="CBS News"><span class="tile__label"><span class="tile__name">CBS News</span><span class="tile__desc">CBS News, 28 owned TV stations and the streaming network.</span></span></a>
+        <a class="tile" href="#" data-tile-anim><img src="../current/assets/media/cc-brandimage-767x767-v2-7fc1f8.jpg" alt="Comedy Central"><span class="tile__label"><span class="tile__name">Comedy Central</span><span class="tile__desc">Comedy's biggest voices and funniest truths.</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="careers" data-section="careers" data-intent="drive action" data-layout="split-media" data-media="image">
+    <div class="careers__inner">
+      <div>
+        <h2 class="display-head"><span class="word">Shape</span> <span class="word">the</span> <span class="word">Future</span></h2>
+        <p data-split>Join a global team telling the stories the world loves.</p>
+        <a class="btn" href="/careers">Join Us</a>
+      </div>
+      <img src="../current/assets/media/career-person-01-720x738-55868c.png" alt="Life at Paramount" data-anim>
+    </div>
+  </section>
+
+  <section class="relief" data-section="relief" data-intent="tonal break" data-layout="contained">
+    <h2 class="display-head"><span class="word">One</span> <span class="word">House.</span> <span class="word">Every</span> <span class="word">Story.</span></h2>
+    <div><span class="rule">Premium entertainment for billions, in nearly every country.</span></div>
+  </section>
+</main>
+
+<footer data-section="footer" data-intent="navigation + legal" data-layout="grid">
+  <div class="container">
+    <div class="footer-cols">
+      <div><h3>About</h3><ul><li><a href="/about/brands">Brands</a></li><li><a href="/about/businesses">Businesses</a></li><li><a href="/about/leadership">Leadership</a></li><li><a href="/about/history">History</a></li></ul></div>
+      <div><h3>News</h3><ul><li><a href="/news">Latest</a></li><li><a href="/press">Press Releases</a></li></ul></div>
+      <div><h3>Careers</h3><ul><li><a href="/careers/benefits">Benefits</a></li><li><a href="/careers/life-at-paramount">Life at Paramount</a></li><li><a href="/careers/internships">Internships</a></li></ul></div>
+      <div><h3>Investors</h3><ul><li><a href="https://ir.paramount.com/quarterly-results">Quarterly Results</a></li><li><a href="https://ir.paramount.com/events-webcasts-annual-meetings">Events &amp; Webcasts</a></li></ul></div>
+    </div>
+    <div class="footer-legal">© 2026 Paramount. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="lenis.min.js"></script>
+<script>
+(function () {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Mobile nav a11y ──
+  (function(){var b=document.querySelector('.burger'),n=document.getElementById('navlinks');if(!b||!n)return;b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);});document.addEventListener('keydown',function(e){if(e.key==='Escape'){n.classList.remove('open');b.setAttribute('aria-expanded',false);}});})();
+
+  // ── Hero letter-unmask + wordmark/eyebrow entrance (kinetic-display load gesture) ──
+  function bootHero() {
+    const letters = document.querySelectorAll('.hero__we .ltr');
+    letters.forEach((l, i) => {
+      l.style.transition = 'clip-path .7s var(--ease-expo) ' + (i * 90) + 'ms, transform .7s var(--ease-expo) ' + (i * 90) + 'ms';
+      requestAnimationFrame(() => { l.style.clipPath = 'inset(0 0 0 0)'; l.style.transform = 'none'; });
+    });
+    setTimeout(() => { const w = document.querySelector('.hero__wordmark'); if (w) w.classList.add('in'); }, 50);
+    setTimeout(() => { const e = document.querySelector('.hero__eyebrow'); if (e) e.classList.add('in'); }, 50);
+  }
+
+  // ── Hero IP cross-fade loop (reuses captured slick-carousel behavior) ──
+  function bootHeroLoop() {
+    const imgs = Array.from(document.querySelectorAll('.hero__img'));
+    if (imgs.length < 2) return;
+    let idx = 0;
+    setInterval(() => {
+      imgs[idx].classList.remove('active');
+      idx = (idx + 1) % imgs.length;
+      imgs[idx].classList.add('active');
+    }, 4000);
+  }
+
+  if (prefersReducedMotion) {
+    // Force static end-states
+    document.querySelectorAll('.hero__we .ltr').forEach(l => { l.style.clipPath = 'none'; l.style.transform = 'none'; });
+    document.querySelector('.hero__wordmark') && document.querySelector('.hero__wordmark').classList.add('in');
+    document.querySelector('.hero__eyebrow') && document.querySelector('.hero__eyebrow').classList.add('in');
+    document.querySelectorAll('[data-anim], [data-tile-anim], [data-split] span').forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; el.style.filter = 'none'; el.style.clipPath = 'none'; });
+    document.querySelectorAll('.display-head .word').forEach(el => { el.style.clipPath = 'none'; el.style.transform = 'none'; });
+    return; // no Lenis, no rAF
+  }
+
+  bootHero();
+  bootHeroLoop();
+
+  // ── Lenis smooth scroll ──
+  const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+  window.__lenis = lenis;
+  (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
+
+  // ── Nav scrolled state ──
+  const nav = document.getElementById('nav');
+  if (nav) lenis.on('scroll', ({ scroll }) => { nav.classList.toggle('scrolled', scroll > 40); });
+
+  // ── Helpers ──
+  const clamp = (v, lo, hi) => v < lo ? lo : v > hi ? hi : v;
+  const easeOut3 = t => 1 - Math.pow(1 - t, 3);
+  const getDocTop = el => el.getBoundingClientRect().top + (window.__lenis ? window.__lenis.scroll : window.scrollY);
+
+  // ── kinetic-display register config ──
+  const animConfig = {
+    parallax: { translate: 30, fade: 0.3, rangeStart: 0, range: 80 },
+    cards: { trigger: 0.85, range: 0.32, slide: 48, stagger: 0.16 },
+  };
+
+  // ── [data-split]: per-letter spans ──
+  document.querySelectorAll('[data-split]').forEach((el) => {
+    const text = el.textContent; el.textContent = '';
+    text.split('').forEach((ch) => {
+      const s = document.createElement('span');
+      s.textContent = ch === ' ' ? ' ' : ch;
+      s.style.display = 'inline-block';
+      s.style.opacity = '0'; s.style.transform = 'translateY(60%)'; s.style.filter = 'blur(8px)';
+      el.appendChild(s);
+    });
+  });
+
+  const animList = [];
+  const headWords = [];
+  const splitLetters = [];
+
+  function measure() {
+    animList.forEach(({ el }) => { el.style.opacity = el.style.transform = el.style.willChange = ''; });
+    animList.length = 0; headWords.length = 0; splitLetters.length = 0;
+
+    document.querySelectorAll('[data-anim], [data-tile-anim]').forEach((el) => {
+      const parent = el.closest('.brand-grid, .careers__inner, section');
+      let stagger = 0;
+      if (parent) {
+        const peers = parent.querySelectorAll('[data-anim], [data-tile-anim]');
+        const idx = Array.prototype.indexOf.call(peers, el);
+        stagger = (idx % 8) * animConfig.cards.stagger;
+      }
+      el.style.opacity = '0';
+      el.style.transform = el.hasAttribute('data-tile-anim') ? 'translateY(28px) rotateX(8deg)' : 'translateY(' + animConfig.cards.slide + 'px)';
+      el.style.willChange = 'opacity, transform';
+      animList.push({ el, triggerTop: getDocTop(el), staggerDelay: stagger });
+    });
+
+    document.querySelectorAll('.display-head').forEach((head) => {
+      const words = head.querySelectorAll('.word');
+      const top = getDocTop(head);
+      words.forEach((w, i) => {
+        w.style.clipPath = 'inset(0 100% 0 0)';
+        w.style.transform = 'translateY(110%)';
+        w.style.willChange = 'clip-path, transform';
+        headWords.push({ el: w, triggerTop: top, staggerDelay: i * 0.15 });
+      });
+    });
+
+    document.querySelectorAll('[data-split]').forEach((el) => {
+      const top = getDocTop(el);
+      el.querySelectorAll('span').forEach((s, i) => { splitLetters.push({ el: s, triggerTop: top, staggerDelay: i * 0.05 }); });
+    });
+  }
+
+  const heroMarqueeEl = document.querySelector('.hero-marquee');
+
+  (function tick() {
+    const sY = window.__lenis ? window.__lenis.scroll : window.scrollY;
+    const vh = window.innerHeight;
+    const isDesktop = window.innerWidth > 767;
+
+    if (heroMarqueeEl && isDesktop) {
+      const pp = animConfig.parallax;
+      const rs = pp.rangeStart / 100 * vh, re = pp.range / 100 * vh;
+      const p = easeOut3(clamp((sY - rs) / (re - rs), 0, 1));
+      heroMarqueeEl.style.transform = 'translateY(' + (p * -pp.translate) + 'vh)';
+      document.documentElement.style.setProperty('--parallax-progress', p);
+    } else if (heroMarqueeEl) {
+      heroMarqueeEl.style.transform = '';
+    }
+
+    for (let i = 0; i < animList.length; i++) {
+      const item = animList[i];
+      const { trigger, range, slide } = animConfig.cards;
+      const raw = (sY + vh * trigger - item.triggerTop) / (vh * range);
+      const p = easeOut3(clamp(raw - item.staggerDelay, 0, 1));
+      item.el.style.opacity = String(p);
+      item.el.style.transform = item.el.hasAttribute('data-tile-anim')
+        ? 'translateY(' + ((1 - p) * 28) + 'px) rotateX(' + ((1 - p) * 8) + 'deg)'
+        : 'translateY(' + ((1 - p) * slide) + 'px)';
+    }
+
+    for (let i = 0; i < headWords.length; i++) {
+      const item = headWords[i];
+      const raw = (sY + vh * 0.85 - item.triggerTop) / (vh * 0.30);
+      const p = easeOut3(clamp(raw - item.staggerDelay, 0, 1));
+      item.el.style.clipPath = 'inset(0 ' + ((1 - p) * 100) + '% 0 0)';
+      item.el.style.transform = 'translateY(' + ((1 - p) * 110) + '%)';
+    }
+
+    for (let i = 0; i < splitLetters.length; i++) {
+      const item = splitLetters[i];
+      const raw = (sY + vh * 0.85 - item.triggerTop) / (vh * 0.35);
+      const p = easeOut3(clamp(raw - item.staggerDelay, 0, 1));
+      item.el.style.opacity = String(p);
+      item.el.style.transform = 'translateY(' + ((1 - p) * 60) + '%)';
+      item.el.style.filter = 'blur(' + ((1 - p) * 8) + 'px)';
+    }
+
+    requestAnimationFrame(tick);
+  })();
+
+  measure();
+  window.addEventListener('load', () => requestAnimationFrame(measure), { once: true });
+  window.addEventListener('resize', measure, { passive: true });
+})();
+</script>
+</body>
+</html>

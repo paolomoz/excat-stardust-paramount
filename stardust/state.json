@@ -1,0 +1,48 @@
+{
+  "_provenance": {
+    "writtenBy": "stardust:extract (uplift Phase 1)",
+    "writtenAt": "2026-06-29T14:55:00Z",
+    "stardustVersion": "0.13.1"
+  },
+  "site": {
+    "originUrl": "https://www.paramount.com/",
+    "deployUrl": null,
+    "extractedAt": "2026-06-29T14:55:00Z",
+    "pageCap": 1,
+    "totalDiscovered": 1,
+    "crawled": 1
+  },
+  "direction": {
+    "resolvedAt": "2026-06-29T15:10:00Z",
+    "phrase": "uplift https://www.paramount.com/ — keep colors, typography; reuse images, videos and visual motions; provide better design options as static prototypes",
+    "directionFile": "stardust/direction.md",
+    "iaFidelity": "preserved",
+    "variantMode": "multi",
+    "variants": ["A", "B", "C"]
+  },
+  "pages": [
+    {
+      "slug": "home",
+      "url": "https://www.paramount.com/",
+      "title": "Home | Paramount",
+      "type": "landing",
+      "status": "prototyped",
+      "history": [
+        { "status": "extracted", "at": "2026-06-29T14:55:00Z" },
+        { "status": "directed", "at": "2026-06-29T15:10:00Z" },
+        { "status": "prototyped", "at": "2026-06-29T15:50:00Z" }
+      ],
+      "stale": false,
+      "staleReason": null,
+      "currentStatePath": "stardust/current/pages/index.json",
+      "prototypePath": "stardust/prototypes/home-A-proposed.html",
+      "variantPrototypes": {
+        "A": "stardust/prototypes/home-A-proposed.html",
+        "B": "stardust/prototypes/home-B-proposed.html",
+        "C-static": "stardust/prototypes/home-C-proposed.html",
+        "C-cinematic": "stardust/prototypes/home-C-cinematic.html"
+      },
+      "migratedPath": null
+    }
+  ]
+}

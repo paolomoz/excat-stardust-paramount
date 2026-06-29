@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-29T15:10:00Z",
+  "title": "Design System: Paramount.com — Variant C",
+  "_provenance": {
+    "writtenBy": "stardust:uplift (Phase 4 / direct)",
+    "mode": "Mode A (brand-faithful)",
+    "variant": "C",
+    "capturedTraitAmplified": "display typography (kinetic)",
+    "readArtifacts": ["stardust/current/_brand-extraction.json", "stardust/uplift-questions.md", "stardust/direction.md"]
+  },
+  "extensions": {
+    "colorMeta": {
+      "midnight-navy": { "role": "neutral", "displayName": "Midnight Navy", "canonical": "#000A3C" },
+      "deep-navy": { "role": "neutral", "displayName": "Deep Navy", "canonical": "#00072B" },
+      "electric-blue": { "role": "primary", "displayName": "Electric Blue", "canonical": "#0064FF" },
+      "paper-white": { "role": "neutral", "displayName": "Paper White", "canonical": "#FFFFFF" },
+      "magenta-pop": { "role": "accent", "displayName": "Magenta Pop", "canonical": "#D63384" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero + every promoted section header; animated entrance." },
+      "headline": { "displayName": "Headline", "purpose": "Sub-section heads, scroll-wipe entrance." },
+      "body": { "displayName": "Body", "purpose": "Static; gentle fade only." }
+    },
+    "shadows": [],
+    "motion": {
+      "register": "kinetic-display",
+      "registerRationale": "PRODUCT.md Brand Personality: 'display-typography-signature' (Paramount Vista Sans at 112-160px) + 'WE ARE' lockup used as structural language — maps directly to kinetic-display per motion-registers.md selection heuristic.",
+      "easings": { "entrance": "cubic-bezier(0.25, 0.46, 0.45, 0.94)", "transition": "cubic-bezier(0.4, 0, 0.2, 1)", "expo": "cubic-bezier(0.16, 1, 0.3, 1)" },
+      "durations": { "enter": 800, "stagger": 110, "letterStagger": 50 },
+      "parallax": { "translate": 12, "fade": 0.3, "rangeStart": 0, "range": 60 },
+      "marquee": { "speed": 30 },
+      "signatureMoves": [
+        "Hero 'WE ARE' unmasks letter-by-letter via clip-path: inset(0 0 100% 0) staggered 120ms on load",
+        "Section heads wipe in left-to-right via clip-path on word-span children, scroll-driven",
+        "Hero IP photography cross-fades on a 4s timed loop (reuses captured slick-carousel behavior)",
+        "Large display copy reveals with filter: blur(8px -> 0) on scroll",
+        "Brand tiles reveal on scroll with staggered clip-path wipe"
+      ]
+    },
+    "breakpoints": [ { "name": "tablet", "value": "600px" }, { "name": "desktop", "value": "900px" }, { "name": "wide", "value": "1200px" } ],
+    "iaPriorities": [
+      { "signal": "audience-routing", "evidence": "4 nav pillars routing distinct audiences", "preserveAs": "header-persistent", "scope": "site-wide", "mutability": "movable" },
+      { "signal": "careers-cta", "evidence": "'SHAPE THE FUTURE / JOIN US' band", "preserveAs": "dedicated-section", "scope": "site-wide", "mutability": "movable" },
+      { "signal": "brand-portfolio", "evidence": "12-tile brand grid — load-bearing 'what we are' surface", "preserveAs": "primary-section", "scope": "site-wide", "mutability": "movable" }
+    ],
+    "componentStyle": {
+      "buttons": "Hard-rectangle, electric-blue fill, white label, magenta hover.",
+      "cards": "Same weighted grid as A; staggered clip-path scroll reveal.",
+      "dualCTAPattern": "Single primary CTA per band."
+    },
+    "systemComponentRoles": {
+      "header": { "purpose": "audience routing", "position": "transparent-over-hero" },
+      "cta-band": { "purpose": "careers", "position": "lower-third", "constraint": "kinetic display headline" },
+      "footer": { "purpose": "navigation + legal", "position": "page-end" }
+    },
+    "voice": {
+      "dos": ["Three-word declarative statements, in motion", "Reuse captured IP cross-fade"],
+      "donts": ["Restructure layout (that's B)", "Animate more than display type per viewport"]
+    }
+  },
+  "components": [
+    { "name": "Primary Button", "kind": "button", "refersTo": "button-primary", "description": "Primary CTA.", "html": "<button class=\"ds-btn-primary\">JOIN US</button>", "css": ".ds-btn-primary{background:#0064FF;color:#fff;padding:16px 40px;border:none;border-radius:0;font-family:'Peak Sans',Helvetica,Arial,sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:background .2s}.ds-btn-primary:hover{background:#D63384}.ds-btn-primary:focus-visible{outline:3px solid #D63384;outline-offset:3px}" },
+    { "name": "Kinetic Display Word", "kind": "custom", "refersTo": "display", "description": "Letter-by-letter unmask headline.", "html": "<h1 class=\"ds-kinetic\" data-anim=\"split\"><span>W</span><span>E</span></h1>", "css": ".ds-kinetic{font-family:'Paramount Vista Sans','Arial Narrow',sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(64px,12vw,200px);line-height:.88;color:#0064FF;margin:0}.ds-kinetic span{display:inline-block;clip-path:inset(0 0 100% 0);animation:dsUnmask .8s cubic-bezier(.16,1,.3,1) forwards}@keyframes dsUnmask{to{clip-path:inset(0 0 0 0)}}@media(prefers-reduced-motion:reduce){.ds-kinetic span{clip-path:none;animation:none}}" }
+  ],
+  "narrative": {
+    "northStar": "Type in Motion",
+    "overview": "Variant C keeps Variant A's exact IA and makes one bet: motion is part of the Paramount identity. Paramount Vista Sans becomes the page's structural voice, kinetic — letter-unmask, scroll-wipe, parallax, IP cross-fade — with a full reduced-motion fallback.",
+    "keyCharacteristics": ["kinetic-display register", "Hero IP cross-fade loop", "Display type promoted into section headers", "Identical IA to A", "Full prefers-reduced-motion fallback"],
+    "rules": [
+      { "name": "The Color-Is-Constant Rule", "body": "Motion animates position, scale, mask, and opacity — never hue.", "section": "colors" },
+      { "name": "The One-Mover Rule", "body": "Within any viewport, only display type performs the signature motion.", "section": "typography" },
+      { "name": "The No-Shadow Rule", "body": "Surfaces never lift; motion supplies the only dynamism.", "section": "elevation" }
+    ],
+    "dos": ["Do keep Variant A's IA", "Do animate position/scale/mask/opacity not hue", "Do reuse the captured IP cross-fade", "Do ship a reduced-motion fallback"],
+    "donts": ["Don't restructure the layout", "Don't animate more than display type per viewport", "Don't use motion to hide weak content"]
+  }
+}
